@@ -140,7 +140,7 @@ export function ThreadView({ initialPrompt, onThreadCreated }: ThreadViewProps) 
             <button
               type="submit"
               disabled={!input.trim() || isLoading}
-              className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-accent text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isLoading ? (
                 <LoadingSpinner />
@@ -173,7 +173,7 @@ export function ThreadView({ initialPrompt, onThreadCreated }: ThreadViewProps) 
 function EmptyState() {
   return (
     <div className="flex flex-col items-center justify-center py-20 text-center">
-      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5">
+      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-accent/20 to-accent/5">
         <svg
           className="h-8 w-8 text-accent"
           fill="none"

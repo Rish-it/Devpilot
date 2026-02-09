@@ -94,7 +94,7 @@ export function WeeklyUpdate(props: WeeklyUpdateProps) {
           <ul className="space-y-2">
             {props.risksAndIncidents.map((r, i) => (
               <li key={i} className="flex items-start gap-2.5 text-sm text-foreground">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-warning flex-shrink-0" />
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-warning shrink-0" />
                 {r}
               </li>
             ))}

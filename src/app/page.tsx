@@ -21,14 +21,14 @@ const automationCards = [
       "Draft polished release notes from merged PRs with links and contributors.",
     badge: "Weekly",
     templateId: "release_notes",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     title: "Standup Summary",
     description: "Summarize yesterday's git activity for standup.",
     badge: "Daily",
     templateId: "standup",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     title: "CI Analysis",
@@ -36,7 +36,7 @@ const automationCards = [
       "Summarize CI failures and flaky tests; suggest top fixes.",
     badge: "Trigger",
     templateId: "ci_report",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     title: "Bug Scanner",
@@ -44,7 +44,7 @@ const automationCards = [
       "Scan recent commits for likely bugs and propose minimal fixes.",
     badge: "Daily",
     templateId: "bug_scan",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     title: "Dependency Drift",
@@ -58,7 +58,7 @@ const automationCards = [
 
 export default function Home() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedRepo, setSelectedRepo] = useState("Generate Unit Tests");
+  const [selectedRepo, setSelectedRepo] = useState("PR Review");
   const router = useRouter();
 
   const displayedCards = isExpanded ? automationCards : automationCards.slice(0, 3);
@@ -73,8 +73,8 @@ export default function Home() {
       <main className="landing-content">
         <AnimatedLogo />
 
-        <div className="flex flex-col items-center gap-2 mb-8">
-          <h1 className="landing-title">Let's build</h1>
+        <div className="flex flex-col items-center gap-1 mb-4">
+          <h1 className="landing-title">Ship it</h1>
           <RepoSelector
             selectedRepo={selectedRepo}
             onRepoChange={setSelectedRepo}
@@ -87,7 +87,6 @@ export default function Home() {
             <div
               key={card.title}
               onClick={() => handleCardClick(card)}
-              className={card.comingSoon ? "cursor-default" : "cursor-pointer"}
             >
               <AutomationCard
                 title={card.title}
@@ -99,7 +98,7 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="mt-6 mb-2">
+        <div className="mt-4 mb-2">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium cursor-pointer"

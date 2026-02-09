@@ -25,10 +25,10 @@ export const standupSummarySchema = z.object({
         number: z.number().optional().default(0).describe("PR number"),
         title: z.string().optional().default("").describe("PR title"),
         status: z
-          .enum(["opened", "merged", "closed", "reviewed"])
+          .string()
           .optional()
           .default("opened")
-          .describe("What happened"),
+          .describe("What happened (e.g. opened, merged, closed, reviewed)"),
         author: z.string().optional().default("").describe("PR author"),
         url: z.string().optional().default("#").describe("Link to the PR"),
       })
@@ -57,16 +57,10 @@ export const releaseNotesSchema = z.object({
     .array(
       z.object({
         category: z
-          .enum([
-            "Features",
-            "Bug Fixes",
-            "Improvements",
-            "Breaking Changes",
-            "Other",
-          ])
+          .string()
           .optional()
           .default("Other")
-          .describe("Category of changes"),
+          .describe("Category of changes (e.g. Features, Bug Fixes, Improvements, Breaking Changes, Other)"),
         items: z
           .array(
             z.object({
@@ -107,10 +101,10 @@ export const bugScanReportSchema = z.object({
     .array(
       z.object({
         severity: z
-          .enum(["high", "medium", "low"])
+          .string()
           .optional()
           .default("low")
-          .describe("Estimated severity"),
+          .describe("Estimated severity (high, medium, or low)"),
         commitSha: z
           .string()
           .optional()
@@ -213,10 +207,10 @@ export const weeklyUpdateSchema = z.object({
         description: z.string().optional().default("").describe("Brief description"),
         prUrl: z.string().optional().default("#").describe("Link to related PR"),
         impact: z
-          .enum(["high", "medium", "low"])
+          .string()
           .optional()
           .default("medium")
-          .describe("Impact level"),
+          .describe("Impact level (high, medium, or low)"),
       })
     )
     .optional()
@@ -252,7 +246,7 @@ export const commitViewerSchema = z.object({
           .array(
             z.object({
               filename: z.string().optional().default("").describe("File path"),
-              status: z.enum(["added", "modified", "deleted", "renamed"]).optional().default("modified").describe("Change type"),
+              status: z.string().optional().default("modified").describe("Change type (added, modified, deleted, or renamed)"),
               additions: z.number().optional().default(0).describe("Lines added"),
               deletions: z.number().optional().default(0).describe("Lines deleted"),
               patch: z.string().optional().describe("Diff patch for this file"),
@@ -281,6 +275,11 @@ export const commitViewerSchema = z.object({
     .optional()
     .default([])
     .describe("Existing comments on the commits"),
+});
+
+export const prReviewSchema = z.object({
+  owner: z.string().optional().default("").describe("GitHub repository owner (e.g. 'tambo-ai')"),
+  repo: z.string().optional().default("").describe("GitHub repository name (e.g. 'tambo')"),
 });
 
 // ============================================
@@ -384,3 +383,4 @@ export type CIReportProps = z.infer<typeof ciReportSchema>;
 export type WeeklyUpdateProps = z.infer<typeof weeklyUpdateSchema>;
 export type CommitViewerProps = z.infer<typeof commitViewerSchema>;
 export type AutomationCardProps = z.infer<typeof automationCardPropsSchema>;
+export type PRReviewProps = z.infer<typeof prReviewSchema>;

@@ -177,10 +177,149 @@ export const getRepoInfoTool = {
   outputSchema: repoInfoSchema,
 };
 
+export const getPRDetailsTool = {
+  name: "get_pr_details",
+  description:
+    "Get detailed information about a specific pull request including title, body, state, author, branches, additions, deletions, and merge status.",
+  tool: async ({
+    owner,
+    repo,
+    number,
+  }: {
+    owner: string;
+    repo: string;
+    number: number;
+  }) => {
+    const params = new URLSearchParams({ owner, repo });
+    const res = await fetch(`/api/github/pulls/${number}?${params}`);
+    if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+    return res.json();
+  },
+  inputSchema: z.object({
+    owner: z.string().describe("Repository owner"),
+    repo: z.string().describe("Repository name"),
+    number: z.number().describe("Pull request number"),
+  }),
+  outputSchema: z.object({
+    number: z.number(),
+    title: z.string(),
+    body: z.string().nullable(),
+    state: z.string(),
+    author: z.string(),
+    merged: z.boolean(),
+    additions: z.number(),
+    deletions: z.number(),
+    commits: z.number(),
+    changedFiles: z.number(),
+    headBranch: z.string(),
+    baseBranch: z.string(),
+    url: z.string(),
+  }),
+};
+
+export const listPRCommentsTool = {
+  name: "list_pr_comments",
+  description:
+    "List all comments on a pull request, including both general issue comments and inline review comments on code.",
+  tool: async ({
+    owner,
+    repo,
+    number,
+  }: {
+    owner: string;
+    repo: string;
+    number: number;
+  }) => {
+    const params = new URLSearchParams({ owner, repo });
+    const res = await fetch(`/api/github/pulls/${number}/comments?${params}`);
+    if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+    return res.json();
+  },
+  inputSchema: z.object({
+    owner: z.string().describe("Repository owner"),
+    repo: z.string().describe("Repository name"),
+    number: z.number().describe("Pull request number"),
+  }),
+  outputSchema: z.array(
+    z.object({
+      id: z.number(),
+      type: z.enum(["issue", "review"]),
+      body: z.string(),
+      author: z.string(),
+      createdAt: z.string(),
+      path: z.string().optional(),
+      line: z.number().optional(),
+    })
+  ),
+};
+
+export const postPRCommentTool = {
+  name: "post_pr_comment",
+  description:
+    "Post a comment on a pull request. Can post a general comment or an inline review comment on a specific file and line.",
+  tool: async ({
+    owner,
+    repo,
+    number,
+    body,
+    path,
+    line,
+    commitId,
+    inReplyToId,
+  }: {
+    owner: string;
+    repo: string;
+    number: number;
+    body: string;
+    path?: string;
+    line?: number;
+    commitId?: string;
+    inReplyToId?: number;
+  }) => {
+    const params = new URLSearchParams({ owner, repo });
+    const payload: Record<string, unknown> = { body };
+    if (path) {
+      payload.type = "review";
+      payload.path = path;
+      payload.line = line;
+      payload.commitId = commitId;
+    }
+    if (inReplyToId) {
+      payload.inReplyToId = inReplyToId;
+    }
+    const res = await fetch(`/api/github/pulls/${number}/comments?${params}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+    return res.json();
+  },
+  inputSchema: z.object({
+    owner: z.string().describe("Repository owner"),
+    repo: z.string().describe("Repository name"),
+    number: z.number().describe("Pull request number"),
+    body: z.string().describe("Comment body text"),
+    path: z.string().optional().describe("File path for inline review comment"),
+    line: z.number().optional().describe("Line number for inline review comment"),
+    commitId: z.string().optional().describe("Commit SHA for review comment"),
+    inReplyToId: z.number().optional().describe("Comment ID to reply to in a review thread"),
+  }),
+  outputSchema: z.object({
+    id: z.number(),
+    type: z.string(),
+    body: z.string(),
+    author: z.string(),
+  }),
+};
+
 export const allTools = [
   listRecentCommitsTool,
   listPullRequestsTool,
   getWorkflowRunsTool,
   getCommitDetailsTool,
   getRepoInfoTool,
+  getPRDetailsTool,
+  listPRCommentsTool,
+  postPRCommentTool,
 ];

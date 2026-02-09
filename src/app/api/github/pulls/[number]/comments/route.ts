@@ -79,7 +79,27 @@ export async function POST(
   try {
     const body = await request.json();
 
-    if (body.type === "review" && body.path) {
+    if (body.inReplyToId) {
+      // Reply to an existing review comment thread
+      const { data } = await octokit.pulls.createReplyForReviewComment({
+        owner,
+        repo,
+        pull_number: pullNumber,
+        comment_id: body.inReplyToId,
+        body: body.body,
+      });
+      return NextResponse.json({
+        id: data.id,
+        type: "review",
+        body: data.body,
+        author: data.user?.login || "unknown",
+        authorAvatar: data.user?.avatar_url || "",
+        createdAt: data.created_at,
+        path: data.path,
+        line: data.line,
+        inReplyToId: data.in_reply_to_id,
+      });
+    } else if (body.type === "review" && body.path) {
       // Inline review comment on a file
       const { data } = await octokit.pulls.createReviewComment({
         owner,

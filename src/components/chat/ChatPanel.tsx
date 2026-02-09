@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useTamboSuggestions } from "@tambo-ai/react";
 import { AnimatedLogo } from "@/components/ui/AnimatedLogo";
 import { automationTemplates } from "@/lib/automation-templates";
 
@@ -21,18 +22,20 @@ export function ChatPanel({ tambo, initialPrompt, onCollapse }: ChatPanelProps) 
   const [hasSentInitial, setHasSentInitial] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const { suggestions, accept } = useTamboSuggestions({ maxSuggestions: 3 });
 
   const messages = tambo.thread?.messages ?? [];
 
-  // Filter to only user and assistant messages with actual text content
-  // Skip tool role messages and messages that are just raw JSON/tool results
+  // Filter to visible messages: user/assistant with text OR renderedComponent
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const visibleMessages = messages.filter((msg: any) => {
     if (msg.role === "tool") return false;
+    // Keep assistant messages with a renderedComponent
+    if (msg.role === "assistant" && msg.renderedComponent) return true;
     // Get text content
     const text = extractText(msg);
-    // Skip messages with no text, or messages that look like raw JSON tool output
     if (!text) return false;
-    if (text.startsWith("[{") || text.startsWith("{\"")) return false;
+    if (text.startsWith("[{") || text.startsWith('{"')) return false;
     return true;
   });
 
@@ -74,6 +77,11 @@ export function ChatPanel({ tambo, initialPrompt, onCollapse }: ChatPanelProps) 
     setInput(e.target.value);
     e.target.style.height = "auto";
     e.target.style.height = Math.min(e.target.scrollHeight, 160) + "px";
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleAcceptSuggestion = async (suggestion: any) => {
+    await accept({ suggestion, shouldSubmit: true });
   };
 
   return (
@@ -124,6 +132,7 @@ export function ChatPanel({ tambo, initialPrompt, onCollapse }: ChatPanelProps) 
           />
         ) : (
           <div className="flex flex-col gap-3">
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             {visibleMessages.map((msg: any, i: number) => (
               <MessageBubble key={msg.id || i} message={msg} />
             ))}
@@ -133,10 +142,31 @@ export function ChatPanel({ tambo, initialPrompt, onCollapse }: ChatPanelProps) 
                 <span className="text-xs text-muted-foreground">
                   {tambo.generationStage === "STREAMING_RESPONSE"
                     ? "Generating..."
-                    : "Thinking..."}
+                    : tambo.generationStage === "CHOOSING_COMPONENT"
+                      ? "Choosing component..."
+                      : tambo.generationStage === "HYDRATING_COMPONENT"
+                        ? "Rendering..."
+                        : "Thinking..."}
                 </span>
               </div>
             )}
+
+            {/* Suggestions */}
+            {tambo.isIdle && suggestions && suggestions.length > 0 && (
+              <div className="flex flex-wrap gap-2 pt-2">
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                {suggestions.map((s: any, i: number) => (
+                  <button
+                    key={i}
+                    onClick={() => handleAcceptSuggestion(s)}
+                    className="rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-border-hover hover:text-foreground"
+                  >
+                    {s.title || s.content || s.message || "Suggestion"}
+                  </button>
+                ))}
+              </div>
+            )}
+
             <div ref={messagesEndRef} />
           </div>
         )}
@@ -158,7 +188,7 @@ export function ChatPanel({ tambo, initialPrompt, onCollapse }: ChatPanelProps) 
             <button
               type="submit"
               disabled={!input.trim() || !tambo.isIdle}
-              className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-foreground text-background transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-30"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-foreground text-background transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-30"
             >
               <svg
                 className="h-4 w-4"
@@ -184,10 +214,13 @@ export function ChatPanel({ tambo, initialPrompt, onCollapse }: ChatPanelProps) 
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function extractText(message: any): string {
   if (Array.isArray(message.content)) {
     return message.content
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .filter((p: any) => p.type === "text" && p.text)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .map((p: any) => p.text)
       .join("\n");
   }
@@ -226,9 +259,27 @@ function EmptyState({
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function MessageBubble({ message }: { message: any }) {
   const isUser = message.role === "user";
   const text = extractText(message);
+  const hasComponent = !!message.renderedComponent;
+
+  // If assistant message has a component but no text, show a brief indicator
+  if (!isUser && hasComponent && !text) {
+    return (
+      <div className="flex justify-start animate-slideUp">
+        <div className="max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed bg-background border border-border rounded-bl-sm text-foreground">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Component rendered in preview
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!text) return null;
 
@@ -243,6 +294,14 @@ function MessageBubble({ message }: { message: any }) {
           }`}
       >
         <p className="whitespace-pre-wrap">{text}</p>
+        {hasComponent && (
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2 pt-2 border-t border-border/50">
+            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Component rendered in preview
+          </div>
+        )}
       </div>
     </div>
   );

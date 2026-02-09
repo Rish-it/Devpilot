@@ -34,7 +34,7 @@ export function CIReport(props: CIReportProps) {
       <div className="rounded-2xl border border-[#e6e2d9]/50 bg-card p-5 shadow-lg">
         <div className="flex items-center gap-5">
           <div
-            className={`flex items-center justify-center h-20 w-20 rounded-2xl ${scoreBg} flex-shrink-0`}
+            className={`flex items-center justify-center h-20 w-20 rounded-2xl ${scoreBg} shrink-0`}
           >
             <div className="text-center">
               <span className={`text-2xl font-bold ${scoreColor}`}>
@@ -112,7 +112,7 @@ export function CIReport(props: CIReportProps) {
           <ol className="space-y-2.5">
             {props.recommendations.map((rec, i) => (
               <li key={i} className="flex items-start gap-3">
-                <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-info/10 text-[10px] font-bold text-info">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-info/10 text-[10px] font-bold text-info">
                   {i + 1}
                 </span>
                 <p className="text-sm text-foreground">{rec}</p>
