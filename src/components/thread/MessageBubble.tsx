@@ -22,10 +22,10 @@ export function MessageBubble({ message }: MessageBubbleProps) {
     >
       {/* Avatar */}
       <div
-        className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${
+        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
           isUser
             ? "bg-accent text-white"
-            : "bg-gradient-to-br from-purple-500 to-pink-500 text-white"
+            : "bg-linear-to-br from-purple-500 to-pink-500 text-white"
         }`}
       >
         {isUser ? (

@@ -28,7 +28,7 @@ function AutomateContent() {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [leftWidth, setLeftWidth] = useState(420);
     const [isDragging, setIsDragging] = useState(false);
-    const [hasSentInitial, setHasSentInitial] = useState(false);
+    const hasSentInitialRef = useRef(false);
     const layoutRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -63,13 +63,13 @@ function AutomateContent() {
 
     const hasMessages = visibleMessages.length > 0;
 
-    // Auto-send initial prompt
+    // Auto-send initial prompt (ref prevents double-fire in React strict mode)
     useEffect(() => {
-        if (initialPrompt && !hasSentInitial && tambo.isIdle) {
-            setHasSentInitial(true);
+        if (initialPrompt && !hasSentInitialRef.current && tambo.isIdle) {
+            hasSentInitialRef.current = true;
             tambo.sendThreadMessage(initialPrompt, { streamResponse: true });
         }
-    }, [initialPrompt, hasSentInitial, tambo]);
+    }, [initialPrompt, tambo]);
 
     // Auto-scroll on new messages
     useEffect(() => {

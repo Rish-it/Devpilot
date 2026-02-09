@@ -24,7 +24,7 @@ export function Sidebar({
   onSelectThread,
 }: SidebarProps) {
   return (
-    <aside className="flex h-full w-[260px] flex-shrink-0 flex-col border-r border-border bg-sidebar-bg">
+    <aside className="flex h-full w-[260px] shrink-0 flex-col border-r border-border bg-sidebar-bg">
       {/* New Thread Button */}
       <div className="p-3">
         <button

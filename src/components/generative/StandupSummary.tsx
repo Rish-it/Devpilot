@@ -28,7 +28,7 @@ export function StandupSummary(props: StandupSummaryProps) {
           <ul className="space-y-2">
             {props.highlights.map((h, i) => (
               <li key={i} className="flex items-start gap-2.5 text-sm text-foreground">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-success flex-shrink-0" />
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-success shrink-0" />
                 {h}
               </li>
             ))}
@@ -117,7 +117,7 @@ export function StandupSummary(props: StandupSummaryProps) {
           <ul className="space-y-2">
             {props.blockers.map((b, i) => (
               <li key={i} className="flex items-start gap-2.5 text-sm text-foreground">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-warning flex-shrink-0" />
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-warning shrink-0" />
                 {b}
               </li>
             ))}

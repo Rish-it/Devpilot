@@ -188,7 +188,7 @@ export function ChatPanel({ tambo, initialPrompt, onCollapse }: ChatPanelProps) 
             <button
               type="submit"
               disabled={!input.trim() || !tambo.isIdle}
-              className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-foreground text-background transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-30"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-foreground text-background transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-30"
             >
               <svg
                 className="h-4 w-4"

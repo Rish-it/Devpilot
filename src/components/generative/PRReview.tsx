@@ -297,7 +297,7 @@ export function PRReview({ owner, repo }: PRReviewProps) {
             )}
           </div>
           {/* PR Selector */}
-          <div ref={prDropdownRef} className="relative flex-shrink-0">
+          <div ref={prDropdownRef} className="relative shrink-0">
             <button
               onClick={() => setIsPRDropdownOpen((open) => !open)}
               className="pr-selector pr-selector-trigger"
@@ -699,14 +699,14 @@ function CheckIcon({ conclusion, status }: { conclusion: string | null; status: 
   }
   if (conclusion === "success") {
     return (
-      <svg className="w-4 h-4 text-success flex-shrink-0" viewBox="0 0 16 16" fill="currentColor">
+      <svg className="w-4 h-4 text-success shrink-0" viewBox="0 0 16 16" fill="currentColor">
         <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z" />
       </svg>
     );
   }
   if (conclusion === "failure") {
     return (
-      <svg className="w-4 h-4 text-error flex-shrink-0" viewBox="0 0 16 16" fill="currentColor">
+      <svg className="w-4 h-4 text-error shrink-0" viewBox="0 0 16 16" fill="currentColor">
         <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z" />
       </svg>
     );
@@ -763,7 +763,7 @@ function FilesTab({
             <div className="pr-file-header" onClick={() => onToggleFile(file.filename)}>
               <div className="flex items-center gap-2 min-w-0">
                 <svg
-                  className={`w-3.5 h-3.5 flex-shrink-0 text-muted-foreground transition-transform ${expandedFiles.has(file.filename) ? "rotate-90" : ""}`}
+                  className={`w-3.5 h-3.5 shrink-0 text-muted-foreground transition-transform ${expandedFiles.has(file.filename) ? "rotate-90" : ""}`}
                   fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -771,7 +771,7 @@ function FilesTab({
                 <FileStatusBadge status={file.status} />
                 <span className="font-mono text-xs text-foreground truncate">{file.filename}</span>
               </div>
-              <div className="flex items-center gap-2 text-xs font-mono flex-shrink-0">
+              <div className="flex items-center gap-2 text-xs font-mono shrink-0">
                 <span className="text-success">+{file.additions}</span>
                 <span className="text-error">-{file.deletions}</span>
               </div>
@@ -800,7 +800,7 @@ function FileStatusBadge({ status }: { status: string }) {
   const style = map[status] || { bg: "bg-muted text-muted-foreground", label: status?.[0]?.toUpperCase() || "?" };
 
   return (
-    <span className={`w-5 h-5 rounded flex items-center justify-center text-[10px] font-bold flex-shrink-0 ${style.bg}`}>
+    <span className={`w-5 h-5 rounded flex items-center justify-center text-[10px] font-bold shrink-0 ${style.bg}`}>
       {style.label}
     </span>
   );

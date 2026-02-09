@@ -57,7 +57,7 @@ export function ReleaseNotes(props: ReleaseNotesProps) {
             <div className="space-y-2.5">
               {section.items.map((item, j) => (
                 <div key={j} className="flex items-start gap-3">
-                  <span className={`mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0 ${style.color.replace("text-", "bg-")}`} />
+                  <span className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 ${style.color.replace("text-", "bg-")}`} />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm text-foreground">{item.description}</p>
                     <div className="flex items-center gap-2 mt-1">

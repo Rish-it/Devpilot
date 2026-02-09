@@ -597,7 +597,7 @@ function FilesTab({
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     <svg
-                      className={`w-3.5 h-3.5 flex-shrink-0 text-muted-foreground transition-transform ${expandedFiles.has(file.filename) ? "rotate-90" : ""}`}
+                      className={`w-3.5 h-3.5 shrink-0 text-muted-foreground transition-transform ${expandedFiles.has(file.filename) ? "rotate-90" : ""}`}
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -608,7 +608,7 @@ function FilesTab({
                     <FileStatusBadge status={file.status} />
                     <span className="font-mono text-xs text-foreground truncate">{file.filename}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs font-mono flex-shrink-0">
+                  <div className="flex items-center gap-2 text-xs font-mono shrink-0">
                     <span className="text-success">+{file.additions}</span>
                     <span className="text-error">-{file.deletions}</span>
                   </div>
@@ -633,7 +633,7 @@ function FileStatusBadge({ status }: { status: string }) {
     renamed: "bg-info/10 text-info",
   };
   return (
-    <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase flex-shrink-0 ${styles[status] || "bg-muted text-muted-foreground"}`}>
+    <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase shrink-0 ${styles[status] || "bg-muted text-muted-foreground"}`}>
       {status}
     </span>
   );
