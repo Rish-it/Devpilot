@@ -73,7 +73,7 @@ export function RepoSelector({ selectedRepo, onRepoChange, className }: RepoSele
         <div className={twMerge("relative w-full", className)} ref={dropdownRef}>
             <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center justify-center gap-3 px-1 py-1 text-muted-foreground transition-colors hover:text-foreground group"
+                className="repo-selector-trigger flex items-center justify-center gap-3 px-1 py-1 text-muted-foreground transition-colors hover:text-foreground group"
             >
                 <svg
                     className="h-6 w-6 shrink-0 md:h-8 md:w-8"

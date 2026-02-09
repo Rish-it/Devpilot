@@ -8,8 +8,9 @@ export function AnimatedLogo() {
           src="/Octo-5-transparent-lossy.gif"
           alt="Tambo AI"
           fill
-          className="object-contain"
+          className="object-contain relative z-10 landing-logo-image"
           priority
+          unoptimized
         />
       </div>
     </div>

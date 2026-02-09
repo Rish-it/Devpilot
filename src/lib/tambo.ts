@@ -3,16 +3,25 @@ import { ReleaseNotes } from "@/components/generative/ReleaseNotes";
 import { BugScanReport } from "@/components/generative/BugScanReport";
 import { CIReport } from "@/components/generative/CIReport";
 import { WeeklyUpdate } from "@/components/generative/WeeklyUpdate";
+import { CommitViewer } from "@/components/generative/CommitViewer";
 import {
   standupSummarySchema,
   releaseNotesSchema,
   bugScanReportSchema,
   ciReportSchema,
   weeklyUpdateSchema,
+  commitViewerSchema,
 } from "@/lib/schemas";
 import { allTools } from "@/lib/tools";
 
 export const tamboComponents = [
+  {
+    name: "CommitViewer",
+    description:
+      "GitHub-style interactive commit viewer with tabs for Conversation, Commits, and Files. Supports inline code commenting, diff viewing, and reactions. Use this as the PRIMARY component when displaying commits, code changes, or when the user wants to see git activity in a GitHub-like interface.",
+    component: CommitViewer,
+    propsSchema: commitViewerSchema,
+  },
   {
     name: "StandupSummary",
     description:

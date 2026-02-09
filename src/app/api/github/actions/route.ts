@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   const owner = searchParams.get("owner") || process.env.DEFAULT_REPO_OWNER || "";
   const repo = searchParams.get("repo") || process.env.DEFAULT_REPO_NAME || "";
   const status = searchParams.get("status") || undefined;
-  const perPage = parseInt(searchParams.get("per_page") || "30");
+  const perPage = parseInt(searchParams.get("per_page") || "10");
 
   try {
     const params: Record<string, unknown> = {

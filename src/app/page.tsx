@@ -1,54 +1,72 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { AnimatedLogo } from "@/components/ui/AnimatedLogo";
 import { AutomationCard } from "@/components/landing/AutomationCard";
 import { RepoSelector } from "@/components/landing/RepoSelector";
 
 const automationCards = [
   {
-    title: "Scan recent commits",
-    description: "Scan recent commits (since the last run, or last 24h) for likely bugs and propose minimal fixes.",
-    badge: "Daily",
-    icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
+    title: "PR Review",
+    description:
+      "Review pull requests with conversations, commits, checks, and file diffs — all interactive.",
+    badge: "Interactive",
+    templateId: "pr_review",
+    comingSoon: false,
   },
   {
     title: "Release Notes",
-    description: "Draft polished release notes from merged PRs (include links when available).",
+    description:
+      "Draft polished release notes from merged PRs with links and contributors.",
     badge: "Weekly",
-    icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",
+    templateId: "release_notes",
+    comingSoon: true,
   },
   {
     title: "Standup Summary",
     description: "Summarize yesterday's git activity for standup.",
     badge: "Daily",
-    icon: "M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z",
+    templateId: "standup",
+    comingSoon: true,
   },
   {
     title: "CI Analysis",
-    description: "Summarize CI failures and flaky tests from the last CI window; suggest top fixes.",
+    description:
+      "Summarize CI failures and flaky tests; suggest top fixes.",
     badge: "Trigger",
-    icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+    templateId: "ci_report",
+    comingSoon: true,
   },
   {
-    title: "Skill Suggestions",
-    description: "From recent PRs and reviews, suggest next skills to deepen.",
-    badge: "Weekly",
-    icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
+    title: "Bug Scanner",
+    description:
+      "Scan recent commits for likely bugs and propose minimal fixes.",
+    badge: "Daily",
+    templateId: "bug_scan",
+    comingSoon: true,
   },
   {
     title: "Dependency Drift",
-    description: "Detect dependency and SDK drift and propose a minimal alignment plan.",
+    description:
+      "Detect dependency and SDK drift and propose a minimal alignment plan.",
     badge: "Monthly",
-    icon: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4",
+    templateId: "dependency_drift",
+    comingSoon: true,
   },
 ];
 
 export default function Home() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedRepo, setSelectedRepo] = useState("Generate Unit Tests");
+  const router = useRouter();
 
   const displayedCards = isExpanded ? automationCards : automationCards.slice(0, 3);
+
+  const handleCardClick = (card: (typeof automationCards)[number]) => {
+    if (card.comingSoon) return;
+    router.push(`/automate?template=${card.templateId}`);
+  };
 
   return (
     <div className="landing-page">
@@ -66,13 +84,18 @@ export default function Home() {
 
         <div className="landing-cards">
           {displayedCards.map((card) => (
-            <AutomationCard
+            <div
               key={card.title}
-              title={card.title}
-              description={card.description}
-              badge={card.badge}
-              icon={card.icon}
-            />
+              onClick={() => handleCardClick(card)}
+              className={card.comingSoon ? "cursor-default" : "cursor-pointer"}
+            >
+              <AutomationCard
+                title={card.title}
+                description={card.comingSoon ? "Coming soon" : card.description}
+                badge={card.badge}
+                comingSoon={card.comingSoon}
+              />
+            </div>
           ))}
         </div>
 

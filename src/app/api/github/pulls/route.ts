@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   const repo = searchParams.get("repo") || process.env.DEFAULT_REPO_NAME || "";
   const state = (searchParams.get("state") || "all") as "open" | "closed" | "all";
   const since = searchParams.get("since") || undefined;
-  const perPage = parseInt(searchParams.get("per_page") || "30");
+  const perPage = parseInt(searchParams.get("per_page") || "5");
 
   try {
     const { data } = await octokit.pulls.list({

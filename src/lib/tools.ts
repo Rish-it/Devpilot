@@ -45,7 +45,8 @@ export const listRecentCommitsTool = {
     perPage: z
       .number()
       .optional()
-      .describe("Number of commits to return (default 30, max 100)"),
+      .default(5)
+      .describe("Number of commits to return (default 5, max 10 recommended)"),
   }),
   outputSchema: z.array(commitSchema),
 };
@@ -89,7 +90,8 @@ export const listPullRequestsTool = {
     perPage: z
       .number()
       .optional()
-      .describe("Number of PRs to return (default 30)"),
+      .default(5)
+      .describe("Number of PRs to return (default 5)"),
   }),
   outputSchema: z.array(pullRequestSchema),
 };
@@ -126,7 +128,8 @@ export const getWorkflowRunsTool = {
     perPage: z
       .number()
       .optional()
-      .describe("Number of runs to return"),
+      .default(10)
+      .describe("Number of runs to return (default 10)"),
   }),
   outputSchema: z.array(workflowRunSchema),
 };
