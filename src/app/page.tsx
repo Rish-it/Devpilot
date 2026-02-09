@@ -58,7 +58,7 @@ const automationCards = [
 
 export default function Home() {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedRepo, setSelectedRepo] = useState("Generate Unit Tests");
+  const [selectedRepo, setSelectedRepo] = useState("PR Review");
   const router = useRouter();
 
   const displayedCards = isExpanded ? automationCards : automationCards.slice(0, 3);
@@ -73,8 +73,8 @@ export default function Home() {
       <main className="landing-content">
         <AnimatedLogo />
 
-        <div className="flex flex-col items-center gap-2 mb-8">
-          <h1 className="landing-title">Let's build</h1>
+        <div className="flex flex-col items-center gap-1 mb-4">
+          <h1 className="landing-title">Ship it</h1>
           <RepoSelector
             selectedRepo={selectedRepo}
             onRepoChange={setSelectedRepo}
@@ -98,7 +98,7 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="mt-6 mb-2">
+        <div className="mt-4 mb-2">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium cursor-pointer"
