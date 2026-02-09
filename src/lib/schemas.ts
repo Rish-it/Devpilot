@@ -283,6 +283,11 @@ export const commitViewerSchema = z.object({
     .describe("Existing comments on the commits"),
 });
 
+export const prReviewSchema = z.object({
+  owner: z.string().optional().default("").describe("GitHub repository owner (e.g. 'tambo-ai')"),
+  repo: z.string().optional().default("").describe("GitHub repository name (e.g. 'tambo')"),
+});
+
 // ============================================
 // Interactable Component Schemas
 // ============================================
@@ -384,3 +389,4 @@ export type CIReportProps = z.infer<typeof ciReportSchema>;
 export type WeeklyUpdateProps = z.infer<typeof weeklyUpdateSchema>;
 export type CommitViewerProps = z.infer<typeof commitViewerSchema>;
 export type AutomationCardProps = z.infer<typeof automationCardPropsSchema>;
+export type PRReviewProps = z.infer<typeof prReviewSchema>;

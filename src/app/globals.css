@@ -2229,6 +2229,42 @@ body {
   }
 }
 
+/* Message bubbles in Lovable layout */
+.lov-msg {
+  max-width: 85%;
+  padding: 8px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.lov-msg-user {
+  background: var(--lov-ink);
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+.lov-msg-assistant {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--lov-border-soft);
+  color: var(--lov-text);
+  border-bottom-left-radius: 4px;
+}
+
+.lov-center::-webkit-scrollbar {
+  width: 4px;
+}
+
+.lov-center::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.lov-center::-webkit-scrollbar-thumb {
+  background: var(--lov-border);
+  border-radius: 4px;
+}
+
 .lov-input-section {
   margin: 0 12px 14px;
   padding: 10px 12px 10px;

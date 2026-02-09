@@ -21,14 +21,14 @@ const automationCards = [
       "Draft polished release notes from merged PRs with links and contributors.",
     badge: "Weekly",
     templateId: "release_notes",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     title: "Standup Summary",
     description: "Summarize yesterday's git activity for standup.",
     badge: "Daily",
     templateId: "standup",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     title: "CI Analysis",
@@ -36,7 +36,7 @@ const automationCards = [
       "Summarize CI failures and flaky tests; suggest top fixes.",
     badge: "Trigger",
     templateId: "ci_report",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     title: "Bug Scanner",
@@ -44,7 +44,7 @@ const automationCards = [
       "Scan recent commits for likely bugs and propose minimal fixes.",
     badge: "Daily",
     templateId: "bug_scan",
-    comingSoon: true,
+    comingSoon: false,
   },
   {
     title: "Dependency Drift",

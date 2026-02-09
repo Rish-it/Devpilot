@@ -4,6 +4,7 @@ import { BugScanReport } from "@/components/generative/BugScanReport";
 import { CIReport } from "@/components/generative/CIReport";
 import { WeeklyUpdate } from "@/components/generative/WeeklyUpdate";
 import { CommitViewer } from "@/components/generative/CommitViewer";
+import { PRReview } from "@/components/generative/PRReview";
 import {
   standupSummarySchema,
   releaseNotesSchema,
@@ -11,6 +12,7 @@ import {
   ciReportSchema,
   weeklyUpdateSchema,
   commitViewerSchema,
+  prReviewSchema,
 } from "@/lib/schemas";
 import { allTools } from "@/lib/tools";
 
@@ -56,6 +58,13 @@ export const tamboComponents = [
       "Newsletter-style weekly summary with metrics, key changes, risks, and outlook. Use when the user asks for a weekly update, team summary, or weekly report.",
     component: WeeklyUpdate,
     propsSchema: weeklyUpdateSchema,
+  },
+  {
+    name: "PRReview",
+    description:
+      "Interactive GitHub pull request review interface with tabs for Conversation, Commits, Checks, and Files. Shows PR details, comments, file diffs with inline commenting, and CI status. Use when the user asks to review PRs, see pull requests, or do code review.",
+    component: PRReview,
+    propsSchema: prReviewSchema,
   },
 ];
 
