@@ -1,48 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  /* Soft grey color scheme */
   --background: #e8e8e8;
-  /* Light grey background */
   --foreground: hsl(0 0% 12%);
-  /* Dark text for contrast */
-
   --card: #ffffff;
-  /* White for cards - clean contrast */
   --card-hover: #fafafa;
-  /* Slightly off-white for hover */
   --card-active: #f5f5f5;
-
   --border: hsl(0 0% 82%);
-  /* Neutral grey border */
   --border-hover: hsl(0 0% 75%);
-
   --muted: #f0f0f0;
   --muted-foreground: hsl(0 0% 40%);
-
-  /* Accent colors */
   --accent: #e0e0e0;
   --accent-hover: #d5d5d5;
   --accent-foreground: hsl(0 0% 12%);
-
-  /* Status colors */
   --success: #22c55e;
   --warning: #f59e0b;
   --error: #ef4444;
   --info: #3b82f6;
-
-  /* Layout */
   --sidebar-bg: #e8e8e8;
   --sidebar-width: 260px;
   --topbar-bg: #e8e8e8;
   --topbar-height: 56px;
-
-  /* Shadows - stronger for grey bg */
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.08);
   --shadow-md: 0 4px 8px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.08);
   --shadow-lg: 0 10px 20px -3px rgb(0 0 0 / 0.12), 0 4px 8px -4px rgb(0 0 0 / 0.1);
-
-  /* Radius */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -155,10 +136,7 @@ body {
   }
 }
 
-/* ============================================
-   Neumorphic Depth Cards
-   ============================================ */
-
+/* Neumorphic depth cards (landing) */
 .neu-card {
   cursor: pointer;
   border-radius: 22px;
@@ -244,15 +222,77 @@ body {
   font-weight: 500;
 }
 
-/* ============================================
-   Neumorphic Generative Components (shared)
-   ============================================ */
-
-.neu-gen-panel {
+/* Neumorphic generative shell (shared) */
+.neu-shell {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
   background: #F0F0F0;
-  padding: 24px;
   border-radius: 20px;
-  min-height: 100%;
+  box-shadow:
+    4px 4px 10px rgba(0, 0, 0, 0.08),
+    -3px -3px 8px rgba(255, 255, 255, 0.45);
+}
+
+.neu-shell-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  background: #282828;
+  border-radius: 20px 20px 0 0;
+  flex-shrink: 0;
+}
+
+.neu-shell-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #F0F0F0;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.neu-shell-subtitle {
+  font-size: 13px;
+  color: rgba(240, 240, 240, 0.55);
+  margin-top: 4px;
+}
+
+.neu-shell-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(240, 240, 240, 0.6);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 1px 1px 2px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 2px rgba(255, 255, 255, 0.03);
+}
+
+.neu-shell-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  background: #F0F0F0;
+}
+
+.neu-shell-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.neu-shell-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.neu-shell-body::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
 }
 
 .neu-gen-card {
@@ -356,7 +396,6 @@ body {
     inset -1px -1px 2px rgba(255, 255, 255, 0.4);
 }
 
-/* Neumorphic Dropdown */
 .neu-dropdown {
   position: absolute;
   left: 50%;
@@ -440,7 +479,6 @@ body {
   color: #282828 !important;
 }
 
-/* Legacy card text classes – kept for any remaining references */
 .landing-card-title {
   font-size: 0.95rem;
   font-weight: 700;
@@ -470,7 +508,6 @@ body {
   animation: spin 1s linear infinite;
 }
 
-/* Split-panel layout */
 .split-layout {
   display: flex;
   height: 100vh;
@@ -500,7 +537,6 @@ body {
   padding: 32px;
 }
 
-/* Chat messages */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
@@ -527,7 +563,6 @@ body {
   background: var(--background);
 }
 
-/* Preview scrollbar */
 .preview-panel::-webkit-scrollbar {
   width: 6px;
 }
@@ -541,7 +576,6 @@ body {
   border-radius: 4px;
 }
 
-/* Keyframes */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -619,7 +653,6 @@ body {
   }
 }
 
-/* Draggable Preview Panel */
 .draggable-panel {
   position: absolute;
   top: 50%;
@@ -703,10 +736,7 @@ body {
       transparent 80%);
 }
 
-/* ============================================
-   GitHub-Style Commit Viewer (Cream Theme)
-   ============================================ */
-
+/* GitHub-style commit viewer */
 .github-viewer {
   background: var(--card);
   border-radius: 16px;
@@ -801,7 +831,6 @@ body {
   border-radius: 4px;
 }
 
-/* Commits List */
 .github-commits-list {
   display: flex;
   flex-direction: column;
@@ -919,7 +948,6 @@ body {
   font-family: monospace;
 }
 
-/* Files */
 .github-files {
   display: flex;
   flex-direction: column;
@@ -960,7 +988,6 @@ body {
   font-family: monospace;
 }
 
-/* Diff View */
 .github-diff {
   background: var(--background);
   border-top: 1px solid var(--border);
@@ -1053,7 +1080,6 @@ body {
   border-top: 1px solid var(--border);
 }
 
-/* Comments */
 .github-comment {
   display: flex;
   gap: 12px;
@@ -1155,7 +1181,6 @@ body {
   color: var(--muted-foreground);
 }
 
-/* Buttons */
 .github-btn-success {
   display: flex;
   align-items: center;
@@ -1216,7 +1241,6 @@ body {
   border-color: var(--border-hover);
 }
 
-/* Empty State */
 .github-empty-state {
   display: flex;
   flex-direction: column;
@@ -1226,10 +1250,7 @@ body {
   text-align: center;
 }
 
-/* ============================================
-   Automate Page - Seamless Layout
-   ============================================ */
-
+/* Automate page layout */
 .automate-layout {
   display: flex;
   height: 100vh;
@@ -1259,7 +1280,6 @@ body {
     0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* Drag divider between chat and preview */
 .automate-divider {
   width: 16px;
   flex-shrink: 0;
@@ -1286,7 +1306,6 @@ body {
   width: 4px;
 }
 
-/* Collapsed sidebar rail */
 .automate-collapsed-bar {
   width: 52px;
   flex-shrink: 0;
@@ -1320,10 +1339,7 @@ body {
   color: var(--foreground);
 }
 
-/* ============================================
-   PR Review Component
-   ============================================ */
-
+/* PR Review component */
 .pr-review {
   display: flex;
   flex-direction: column;
@@ -1353,7 +1369,6 @@ body {
   margin-bottom: 16px;
 }
 
-/* PR Header */
 .pr-header {
   padding: 20px 24px 12px;
   background: transparent;
@@ -1467,7 +1482,6 @@ body {
   animation: shimmer 1.5s ease-in-out infinite;
 }
 
-/* Tabs */
 .pr-tabs {
   display: flex;
   align-items: center;
@@ -1519,7 +1533,6 @@ body {
   font-family: var(--font-mono), monospace;
 }
 
-/* Content area */
 .pr-content {
   flex: 1;
   overflow-y: auto;
@@ -1548,7 +1561,6 @@ body {
   animation: shimmer 1.5s ease-in-out infinite;
 }
 
-/* Conversation */
 .pr-conversation {
   display: flex;
   flex-direction: column;
@@ -1683,7 +1695,6 @@ body {
   background: var(--card);
 }
 
-/* Commits */
 .pr-commits-list {
   display: flex;
   flex-direction: column;
@@ -1759,7 +1770,6 @@ body {
   text-decoration: underline;
 }
 
-/* Checks */
 .pr-merge-status {
   padding: 16px;
   border: 1px solid var(--border);
@@ -1846,7 +1856,6 @@ body {
   border: 2px solid var(--muted-foreground);
 }
 
-/* Files */
 .pr-files-summary {
   padding: 8px 0;
   margin-bottom: 12px;
@@ -1880,7 +1889,6 @@ body {
   background: var(--card-hover);
 }
 
-/* Diff */
 .pr-diff {
   background: var(--background);
   border-top: 1px solid var(--border);
@@ -1988,10 +1996,6 @@ body {
     padding: 16px;
   }
 }
-
-/* ============================================
-   Grey Background Layout (Automate Page)
-   ============================================ */
 
 .automate-grey-layout {
   display: flex;
@@ -2161,10 +2165,7 @@ body {
   overflow: hidden;
 }
 
-/* ============================================
-   Lovable Dark Layout (Seamless dark sidebar)
-   ============================================ */
-
+/* Lovable dark layout (seamless sidebar, no border) */
 .lovable-dark-layout {
   display: flex;
   height: 100vh;
@@ -2177,7 +2178,6 @@ body {
   display: flex;
   flex-direction: column;
   background: transparent;
-  /* NO border - seamless with background */
 }
 
 .lovable-dark-header {
@@ -2255,7 +2255,6 @@ body {
   background: rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   padding: 10px 12px;
-  /* NO border */
 }
 
 .lovable-dark-textarea {
@@ -2301,7 +2300,6 @@ body {
   cursor: not-allowed;
 }
 
-/* Draggable divider */
 .lovable-dark-divider {
   width: 6px;
   cursor: col-resize;
@@ -2331,7 +2329,6 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  /* Slight rounded corners on left side only */
   border-radius: 12px 0 0 12px;
   margin: 8px 0 8px 0;
 }
@@ -2342,11 +2339,7 @@ body {
   background: #ffffff;
 }
 
-/* ============================================
-   Neumorphic Automate Layout
-   Palette: #F0F0F0 | #6F6F6F | #282828
-   ============================================ */
-
+/* Neumorphic automate layout — palette: #F0F0F0, #6F6F6F, #282828 */
 .lov-layout {
   --lov-surface: #F0F0F0;
   --lov-ink: #282828;
@@ -2358,7 +2351,6 @@ body {
   --lov-muted-soft: #999;
   --lov-border: rgba(0, 0, 0, 0.06);
   --lov-border-soft: rgba(0, 0, 0, 0.04);
-  /* neumorphic shadows — no white glow */
   --neu-up: 4px 4px 10px rgba(0, 0, 0, 0.08), -3px -3px 8px rgba(255, 255, 255, 0.45);
   --neu-down: inset 2px 2px 4px rgba(0, 0, 0, 0.06), inset -2px -2px 4px rgba(255, 255, 255, 0.4);
 
@@ -2367,8 +2359,6 @@ body {
   overflow: hidden;
   background: var(--lov-surface);
 }
-
-/* ---- Sidebar ---- */
 
 .lov-sidebar {
   flex-shrink: 0;
@@ -2453,8 +2443,6 @@ body {
     -3px -3px 8px rgba(255, 255, 255, 0.45);
 }
 
-/* ---- Messages area ---- */
-
 .lov-center {
   flex: 1;
   display: flex;
@@ -2513,8 +2501,6 @@ body {
   background: #d0d0d0;
   border-radius: 4px;
 }
-
-/* ---- Input section ---- */
 
 .lov-input-section {
   margin: 0 14px 16px;
@@ -2630,8 +2616,6 @@ body {
   transform: none;
 }
 
-/* ---- Drag handle ---- */
-
 .lov-drag-pill {
   position: absolute;
   left: 0;
@@ -2665,8 +2649,6 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/* ---- Collapsed sidebar ---- */
-
 .lov-collapsed {
   width: 44px;
   flex-shrink: 0;
@@ -2676,8 +2658,6 @@ body {
   padding-top: 14px;
   background: transparent;
 }
-
-/* ---- Preview panel ---- */
 
 .lov-preview {
   flex: 1;
@@ -2693,7 +2673,6 @@ body {
   box-shadow: none;
 }
 
-/* PR Review inside preview — full neumorphic overhaul */
 .lov-preview .pr-review {
   flex: 1;
   overflow: hidden;
@@ -2709,7 +2688,6 @@ body {
   box-shadow: var(--neu-up);
 }
 
-/* PR header — dark top bar */
 .lov-preview .pr-review .pr-header {
   background: var(--lov-ink);
   border-bottom: none;
@@ -2717,7 +2695,6 @@ body {
   border-radius: 20px 20px 0 0;
 }
 
-/* PR tabs — dark continuation */
 .lov-preview .pr-review .pr-tabs {
   background: var(--lov-ink);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -2737,7 +2714,6 @@ body {
   color: rgba(240, 240, 240, 0.8);
 }
 
-/* PR selector — neumorphic trigger on dark */
 .lov-preview .pr-review .pr-selector {
   background: rgba(0, 0, 0, 0.2);
   color: #F0F0F0;
@@ -2768,7 +2744,6 @@ body {
   min-width: 360px;
 }
 
-/* PR selector dropdown */
 .lov-preview .pr-review .pr-selector-menu {
   background: #efefef;
   border: none;
@@ -2804,7 +2779,6 @@ body {
   text-align: left;
 }
 
-/* Tabs — neumorphic pressed on dark */
 .lov-preview .pr-review .pr-tab {
   color: rgba(240, 240, 240, 0.4);
   border-bottom: none;
@@ -2837,7 +2811,6 @@ body {
   font-size: 11px;
 }
 
-/* State badges */
 .lov-preview .pr-review .pr-state-badge.open,
 .lov-preview .pr-review .pr-state-badge.closed,
 .lov-preview .pr-review .pr-state-badge.merged {
@@ -2859,7 +2832,6 @@ body {
   color: #c4b5fd;
 }
 
-/* Stats in header/tabs */
 .lov-preview .pr-review .pr-header .text-success,
 .lov-preview .pr-review .pr-tabs .text-success {
   color: #6ee7b7 !important;
@@ -2870,7 +2842,6 @@ body {
   color: #fca5a5 !important;
 }
 
-/* Content area */
 .lov-preview .pr-review .pr-content {
   background: var(--lov-surface);
 }
@@ -2883,7 +2854,6 @@ body {
   color: #dc2626 !important;
 }
 
-/* Card headers inside content — neumorphic dark strip */
 .lov-preview .pr-review .pr-comment-card-header,
 .lov-preview .pr-review .pr-file-header,
 .lov-preview .pr-review .pr-review-context {
@@ -2900,7 +2870,6 @@ body {
   background: #eaeaea;
 }
 
-/* Merge status neumorphic */
 .lov-preview .pr-review .pr-merge-status {
   border: none;
   border-radius: 14px;
@@ -2916,7 +2885,6 @@ body {
   box-shadow: var(--neu-down);
 }
 
-/* Muted text in dark headers */
 .lov-preview .pr-review .pr-comment-card-header .text-muted-foreground,
 .lov-preview .pr-review .pr-review-context .text-muted-foreground,
 .lov-preview .pr-review .pr-file-header .text-muted-foreground,
@@ -2924,7 +2892,6 @@ body {
   color: rgba(240, 240, 240, 0.6) !important;
 }
 
-/* Content panels — neumorphic inset depth */
 .lov-preview .pr-review .pr-comment-card-body {
   background: #eaeaea;
   padding: 16px 18px;
@@ -2948,7 +2915,6 @@ body {
     inset -1px -1px 3px rgba(255, 255, 255, 0.4);
 }
 
-/* New comment form — same depth as content */
 .lov-preview .pr-review .pr-new-comment {
   background: #eaeaea;
   padding: 18px;
@@ -2963,7 +2929,6 @@ body {
     inset -2px -2px 4px rgba(255, 255, 255, 0.06);
 }
 
-/* Card shapes — soft radius */
 .lov-preview .pr-review .pr-comment-card,
 .lov-preview .pr-review .pr-file-block,
 .lov-preview .pr-review .pr-new-comment,
@@ -2979,7 +2944,6 @@ body {
   overflow: hidden;
 }
 
-/* Branch pills — neumorphic inset */
 .lov-preview .pr-review .pr-branch {
   background: rgba(255, 255, 255, 0.06);
   color: rgba(240, 240, 240, 0.75);
@@ -2990,7 +2954,6 @@ body {
     inset -1px -1px 2px rgba(255, 255, 255, 0.03);
 }
 
-/* Commit rows — neumorphic */
 .lov-preview .pr-review .pr-commit-row {
   padding: 14px 0;
 }
@@ -3015,7 +2978,6 @@ body {
   color: var(--lov-mid);
 }
 
-/* Check rows — neumorphic on hover */
 .lov-preview .pr-review .pr-check-row {
   border-radius: 10px;
   transition: all 0.15s ease;
@@ -3051,7 +3013,6 @@ body {
   border-color: #ccc;
 }
 
-/* Buttons in PR — neumorphic */
 .lov-preview .pr-review .pr-btn-primary {
   background: var(--lov-ink);
   color: #F0F0F0;
@@ -3090,7 +3051,6 @@ body {
     -3px -3px 8px rgba(255, 255, 255, 0.45);
 }
 
-/* Textarea in PR — neumorphic inset */
 .lov-preview .pr-review .pr-textarea {
   background: #e2e2e2;
   border: none;
@@ -3112,7 +3072,6 @@ body {
   color: #b0b0b0;
 }
 
-/* SHA badges — neumorphic inset */
 .lov-preview .pr-review .pr-sha {
   background: #e4e4e4;
   color: var(--lov-mid);
@@ -3128,7 +3087,6 @@ body {
   background: #ddd;
 }
 
-/* Diff lines */
 .lov-preview .pr-review .pr-diff-num {
   background: #e6e6e6;
   color: #b0b0b0;
@@ -3140,12 +3098,10 @@ body {
   border-radius: 6px;
 }
 
-/* Files summary */
 .lov-preview .pr-review .pr-files-summary {
   color: var(--lov-mid);
 }
 
-/* Skeleton loading */
 .lov-preview .pr-review .pr-skeleton {
   background: #e6e6e6;
   border-radius: 12px;
@@ -3153,13 +3109,11 @@ body {
   animation: none;
 }
 
-/* Loading spinner */
 .lov-preview .pr-review .pr-loading-spinner {
   border-color: #ddd;
   border-top-color: var(--lov-mid);
 }
 
-/* Avatar tweaks */
 .lov-preview .pr-review .pr-avatar,
 .lov-preview .pr-review .pr-author-avatar {
   border-radius: 50%;
@@ -3168,16 +3122,187 @@ body {
     -1px -1px 3px rgba(255, 255, 255, 0.5);
 }
 
-/* Scrollbar for content */
 .lov-preview .pr-review .pr-content::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 4px;
 }
 
-/* Review diff hunk */
 .lov-preview .pr-review .pr-review-diff-hunk {
   background: #e6e6e6;
   box-shadow:
     inset 1px 1px 2px rgba(0, 0, 0, 0.03),
     inset -1px -1px 2px rgba(255, 255, 255, 0.35);
+}
+
+/* neu-shell overrides inside lov-preview (after pr-review) */
+.lov-preview .neu-shell {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 !important;
+  overflow: hidden !important;
+  border-radius: 20px !important;
+  background: #F0F0F0 !important;
+  box-shadow:
+    4px 4px 10px rgba(0, 0, 0, 0.08),
+    -3px -3px 8px rgba(255, 255, 255, 0.45) !important;
+}
+
+.lov-preview .neu-shell-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 20px 24px 16px !important;
+  background: #282828 !important;
+  border-radius: 20px 20px 0 0 !important;
+  flex-shrink: 0 !important;
+}
+
+.lov-preview .neu-shell-title {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  color: #F0F0F0 !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+}
+
+.lov-preview .neu-shell-subtitle {
+  font-size: 13px !important;
+  color: rgba(240, 240, 240, 0.55) !important;
+  margin-top: 4px !important;
+}
+
+.lov-preview .neu-shell-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 4px 12px !important;
+  border-radius: 8px !important;
+  font-size: 0.6rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: rgba(240, 240, 240, 0.6) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow:
+    inset 1px 1px 2px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 2px rgba(255, 255, 255, 0.03) !important;
+}
+
+.lov-preview .neu-shell-body {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  padding: 24px !important;
+  background: #F0F0F0 !important;
+}
+
+.lov-preview .neu-shell-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.lov-preview .neu-shell-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.lov-preview .neu-shell-body::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.lov-preview .neu-gen-card {
+  background: #efefef !important;
+  border-radius: 16px !important;
+  border: none !important;
+  padding: 20px !important;
+  box-shadow:
+    4px 4px 10px rgba(0, 0, 0, 0.08),
+    -3px -3px 8px rgba(255, 255, 255, 0.45) !important;
+}
+
+.lov-preview .neu-gen-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  background: #efefef !important;
+  box-shadow:
+    3px 3px 8px rgba(0, 0, 0, 0.06),
+    -2px -2px 6px rgba(255, 255, 255, 0.45) !important;
+  transition: all 0.15s ease !important;
+  text-decoration: none !important;
+}
+
+.lov-preview .neu-gen-row:hover {
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.06),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.4) !important;
+}
+
+.lov-preview .neu-gen-btn {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 10px 18px !important;
+  border-radius: 12px !important;
+  background: #efefef !important;
+  color: #6F6F6F !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  cursor: pointer !important;
+  box-shadow:
+    3px 3px 8px rgba(0, 0, 0, 0.08),
+    -2px -2px 6px rgba(255, 255, 255, 0.45) !important;
+  transition: all 0.15s ease !important;
+}
+
+.lov-preview .neu-gen-btn:hover {
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.06),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.4) !important;
+}
+
+.lov-preview .neu-sha {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 12px !important;
+  color: #6F6F6F !important;
+  background: #e4e4e4 !important;
+  padding: 1px 6px !important;
+  border-radius: 5px !important;
+  text-decoration: none !important;
+  box-shadow:
+    inset 1px 1px 2px rgba(0, 0, 0, 0.05),
+    inset -1px -1px 2px rgba(255, 255, 255, 0.5) !important;
+}
+
+.lov-preview .neu-sha:hover {
+  color: #282828 !important;
+}
+
+.lov-preview .neu-avatar {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: #e6e6e6 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #6F6F6F !important;
+  box-shadow:
+    2px 2px 5px rgba(0, 0, 0, 0.06),
+    -2px -2px 5px rgba(255, 255, 255, 0.45) !important;
+}
+
+.lov-preview .neu-status-badge {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  padding: 3px 10px !important;
+  border-radius: 8px !important;
+  flex-shrink: 0 !important;
+  box-shadow:
+    inset 1px 1px 2px rgba(0, 0, 0, 0.04),
+    inset -1px -1px 2px rgba(255, 255, 255, 0.4) !important;
 }
