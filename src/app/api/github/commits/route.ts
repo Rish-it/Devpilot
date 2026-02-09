@@ -1,7 +1,8 @@
-import { octokit } from "@/lib/github";
+import { getOctokit } from "@/lib/github";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
+  const octokit = getOctokit(request);
   const { searchParams } = new URL(request.url);
   const owner = searchParams.get("owner") || process.env.DEFAULT_REPO_OWNER || "";
   const repo = searchParams.get("repo") || process.env.DEFAULT_REPO_NAME || "";

@@ -1,9 +1,10 @@
 "use client";
 
 import { Suspense, useState, useRef, useEffect, useCallback } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useTamboThread, useTamboSuggestions } from "@tambo-ai/react";
 import { automationTemplates } from "@/lib/automation-templates";
+import { useAuth } from "@/providers/AuthProvider";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function extractText(message: any): string {
@@ -20,9 +21,11 @@ function extractText(message: any): string {
 
 function AutomateContent() {
     const searchParams = useSearchParams();
+    const router = useRouter();
     const templateId = searchParams.get("template");
     const tambo = useTamboThread();
     const { suggestions, accept } = useTamboSuggestions({ maxSuggestions: 3 });
+    const { user, isLoading } = useAuth();
 
     const [chatInput, setChatInput] = useState("");
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -33,15 +36,27 @@ function AutomateContent() {
     const inputRef = useRef<HTMLTextAreaElement>(null);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
+    // Auth guard — redirect to landing if not logged in
+    useEffect(() => {
+        if (!isLoading && !user) {
+            router.replace("/");
+        }
+    }, [isLoading, user, router]);
+
+    // Read selected repo from localStorage
+    const selectedRepo = typeof window !== "undefined"
+        ? localStorage.getItem("devpilot-repo") || ""
+        : "";
+
     // Resolve the initial prompt from the template query param
     const initialPrompt = (() => {
-        if (!templateId) return undefined;
+        if (!templateId || !selectedRepo) return undefined;
         if (templateId === "pr_review") {
-            return "Show me the open pull requests for tambo-ai/tambo so I can review them. Use the PRReview component.";
+            return `Show me the open pull requests for ${selectedRepo} so I can review them. Use the PRReview component.`;
         }
         const template = automationTemplates.find((t) => t.id === templateId);
         if (!template) return undefined;
-        return template.prompt.replace("{repo}", "tambo-ai/tambo");
+        return template.prompt.replace("{repo}", selectedRepo);
     })();
 
     // Find the latest assistant message with a renderedComponent
@@ -129,6 +144,19 @@ function AutomateContent() {
     const handleAcceptSuggestion = async (suggestion: any) => {
         await accept({ suggestion, shouldSubmit: true });
     };
+
+    if (isLoading || !user) {
+        return (
+            <div className="lov-layout">
+                <div className="lov-sidebar" style={{ width: 420 }}>
+                    <div className="lov-center">
+                        <div className="lov-spinner" />
+                    </div>
+                </div>
+                <div className="lov-preview" />
+            </div>
+        );
+    }
 
     return (
         <div ref={layoutRef} className="lov-layout">

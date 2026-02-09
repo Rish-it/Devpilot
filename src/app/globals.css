@@ -520,6 +520,154 @@ body {
   line-height: 1.55;
 }
 
+/* ── Auth: Login Button ── */
+
+.neu-login-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: none;
+  background: #282828;
+  color: #F0F0F0;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow:
+    6px 6px 14px rgba(0, 0, 0, 0.12),
+    -4px -4px 10px rgba(255, 255, 255, 0.5);
+  transition: all 0.2s ease;
+}
+
+.neu-login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    7px 7px 16px rgba(0, 0, 0, 0.15),
+    -4px -4px 10px rgba(255, 255, 255, 0.5);
+}
+
+.neu-login-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.3),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.03);
+}
+
+/* ── Auth: User Menu ── */
+
+.neu-user-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 6px;
+  border-radius: 999px;
+  background: #efefef;
+  box-shadow:
+    4px 4px 10px rgba(0, 0, 0, 0.08),
+    -3px -3px 8px rgba(255, 255, 255, 0.45);
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+.neu-user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  box-shadow:
+    2px 2px 5px rgba(0, 0, 0, 0.07),
+    -2px -2px 5px rgba(255, 255, 255, 0.4);
+}
+
+.neu-logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #e6e6e6;
+  color: #6F6F6F;
+  cursor: pointer;
+  box-shadow:
+    inset 1px 1px 2px rgba(0, 0, 0, 0.05),
+    inset -1px -1px 2px rgba(255, 255, 255, 0.6);
+  transition: all 0.15s ease;
+}
+
+.neu-logout-btn:hover {
+  color: #282828;
+  background: #e4e4e4;
+}
+
+/* ── Repo Search ── */
+
+.neu-repo-search-container {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+}
+
+.neu-repo-selected {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: none;
+  background: #eaeaea;
+  color: #282828;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.06),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.4);
+  transition: all 0.15s ease;
+}
+
+.neu-repo-selected:hover {
+  background: #e6e6e6;
+}
+
+.neu-repo-selected-name {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.neu-repo-search-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: #eaeaea;
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.06),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.4);
+}
+
+.neu-repo-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #282828;
+  font-family: inherit;
+}
+
+.neu-repo-search-input::placeholder {
+  color: #999;
+}
+
 .animate-fadeIn {
   animation: fadeIn 200ms ease;
 }

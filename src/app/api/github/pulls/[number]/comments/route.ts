@@ -1,10 +1,11 @@
-import { octokit } from "@/lib/github";
+import { getOctokit } from "@/lib/github";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ number: string }> }
 ) {
+  const octokit = getOctokit(request);
   const { number } = await params;
   const { searchParams } = new URL(request.url);
   const owner = searchParams.get("owner") || process.env.DEFAULT_REPO_OWNER || "";
@@ -70,6 +71,7 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ number: string }> }
 ) {
+  const octokit = getOctokit(request);
   const { number } = await params;
   const { searchParams } = new URL(request.url);
   const owner = searchParams.get("owner") || process.env.DEFAULT_REPO_OWNER || "";
