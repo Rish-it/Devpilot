@@ -87,7 +87,6 @@ export default function Home() {
             <div
               key={card.title}
               onClick={() => handleCardClick(card)}
-              className={card.comingSoon ? "cursor-default" : "cursor-pointer"}
             >
               <AutomationCard
                 title={card.title}

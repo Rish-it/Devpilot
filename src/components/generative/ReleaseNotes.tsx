@@ -3,12 +3,12 @@
 import { useState } from "react";
 import type { ReleaseNotesProps } from "@/lib/schemas";
 
-const CATEGORY_STYLES: Record<string, { color: string; bg: string; border: string }> = {
-  Features: { color: "text-success", bg: "bg-success/5", border: "border-l-success" },
-  "Bug Fixes": { color: "text-error", bg: "bg-error/5", border: "border-l-error" },
-  Improvements: { color: "text-info", bg: "bg-info/5", border: "border-l-info" },
-  "Breaking Changes": { color: "text-warning", bg: "bg-warning/5", border: "border-l-warning" },
-  Other: { color: "text-muted-foreground", bg: "bg-muted/50", border: "border-l-muted-foreground" },
+const CATEGORY_COLORS: Record<string, string> = {
+  Features: "#22c55e",
+  "Bug Fixes": "#ef4444",
+  Improvements: "#3b82f6",
+  "Breaking Changes": "#f59e0b",
+  Other: "#6F6F6F",
 };
 
 export function ReleaseNotes(props: ReleaseNotesProps) {
@@ -23,53 +23,48 @@ export function ReleaseNotes(props: ReleaseNotesProps) {
   };
 
   return (
-    <div className="space-y-5">
+    <div className="neu-gen-panel space-y-5">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-foreground">Release Notes</h2>
-          <p className="text-sm text-muted-foreground mt-0.5">
+          <h2 className="text-xl font-bold" style={{ color: "#282828" }}>Release Notes</h2>
+          <p className="text-sm mt-0.5" style={{ color: "#6F6F6F" }}>
             {props.repoName} &middot; {props.periodStart} to {props.periodEnd}
           </p>
         </div>
         <div className="flex items-center gap-2">
           {props.version && (
-            <span className="rounded-full bg-info/10 text-info px-3 py-1 text-xs font-semibold">
-              {props.version}
-            </span>
+            <span className="neu-badge">{props.version}</span>
           )}
-          <span className="landing-card-badge">Weekly</span>
+          <span className="neu-badge">Weekly</span>
         </div>
       </div>
 
       {/* Sections */}
       {props.sections.map((section, i) => {
-        const style = CATEGORY_STYLES[section.category] || CATEGORY_STYLES.Other;
+        const accent = CATEGORY_COLORS[section.category] || CATEGORY_COLORS.Other;
         return (
-          <div
-            key={i}
-            className={`rounded-2xl border border-[#e6e2d9]/50 ${style.bg} p-5 shadow-lg border-l-4 ${style.border}`}
-          >
-            <h3 className={`text-sm font-semibold ${style.color} mb-3 flex items-center gap-2`}>
+          <div key={i} className="neu-gen-card" style={{ borderLeft: `3px solid ${accent}` }}>
+            <h3 className="text-sm font-bold mb-3 flex items-center gap-2" style={{ color: accent }}>
               <CategoryIcon category={section.category} />
               {section.category} ({section.items.length})
             </h3>
             <div className="space-y-2.5">
               {section.items.map((item, j) => (
                 <div key={j} className="flex items-start gap-3">
-                  <span className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 ${style.color.replace("text-", "bg-")}`} />
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: accent }} />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-foreground">{item.description}</p>
+                    <p className="text-sm" style={{ color: "#282828" }}>{item.description}</p>
                     <div className="flex items-center gap-2 mt-1">
                       <a
                         href={item.prUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-mono text-xs text-muted-foreground hover:text-foreground transition-colors"
+                        className="neu-sha"
                       >
                         #{item.prNumber}
                       </a>
-                      <span className="text-xs text-muted-foreground">by {item.author}</span>
+                      <span className="text-xs" style={{ color: "#999" }}>by {item.author}</span>
                     </div>
                   </div>
                 </div>
@@ -81,17 +76,13 @@ export function ReleaseNotes(props: ReleaseNotesProps) {
 
       {/* Contributors */}
       {props.contributors && props.contributors.length > 0 && (
-        <div className="rounded-2xl border border-[#e6e2d9]/50 bg-card p-5 shadow-lg">
-          <h3 className="text-sm font-semibold text-foreground mb-3">
+        <div className="neu-gen-card">
+          <h3 className="text-sm font-bold mb-3" style={{ color: "#282828" }}>
             Contributors ({props.contributors.length})
           </h3>
           <div className="flex flex-wrap gap-2">
             {props.contributors.map((c, i) => (
-              <div
-                key={i}
-                className="flex items-center justify-center h-8 w-8 rounded-full bg-accent text-accent-foreground text-xs font-semibold border border-border"
-                title={c}
-              >
+              <div key={i} className="neu-avatar" title={c}>
                 {c.slice(0, 2).toUpperCase()}
               </div>
             ))}
@@ -101,11 +92,8 @@ export function ReleaseNotes(props: ReleaseNotesProps) {
 
       {/* Copy Markdown */}
       {props.markdownOutput && (
-        <button
-          onClick={handleCopyMarkdown}
-          className="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-card-hover shadow-sm"
-        >
-          <svg className="h-4 w-4 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <button onClick={handleCopyMarkdown} className="neu-gen-btn">
+          <svg className="h-4 w-4" style={{ color: "#6F6F6F" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             {copied ? (
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             ) : (

@@ -320,7 +320,7 @@ export function PRReview({ owner, repo }: PRReviewProps) {
               </svg>
             </button>
             {isPRDropdownOpen && (
-              <div className="pr-selector-menu absolute right-0 top-full z-50 mt-3 w-[420px] max-h-96 overflow-y-auto rounded-2xl border border-[#e6e2d9] bg-card p-2 shadow-xl ring-1 ring-black/5 animate-in fade-in zoom-in-95 duration-100">
+              <div className="pr-selector-menu absolute right-0 top-full z-50 mt-3 w-[420px] max-h-96 overflow-y-auto">
                 <div className="space-y-0.5">
                   {prs.map((pr) => (
                     <button
@@ -329,8 +329,7 @@ export function PRReview({ owner, repo }: PRReviewProps) {
                         setSelectedPR(pr.number);
                         setIsPRDropdownOpen(false);
                       }}
-                      className={`pr-selector-item flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-sm transition-colors ${selectedPR === pr.number ? "text-foreground bg-accent/35" : "text-muted-foreground/80 hover:text-foreground hover:bg-accent/20"
-                        }`}
+                      className={`pr-selector-item flex w-full items-center gap-2 text-sm ${selectedPR === pr.number ? "active" : ""}`}
                       type="button"
                     >
                       <span className="truncate">#{pr.number} {pr.title}</span>

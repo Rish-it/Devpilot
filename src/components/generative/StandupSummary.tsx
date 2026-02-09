@@ -4,31 +4,31 @@ import type { StandupSummaryProps } from "@/lib/schemas";
 
 export function StandupSummary(props: StandupSummaryProps) {
   return (
-    <div className="space-y-5">
+    <div className="neu-gen-panel space-y-5">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-foreground">Standup Summary</h2>
-          <p className="text-sm text-muted-foreground mt-0.5">
+          <h2 className="text-xl font-bold" style={{ color: "#282828" }}>Standup Summary</h2>
+          <p className="text-sm mt-0.5" style={{ color: "#6F6F6F" }}>
             {props.repoName} &middot; {props.date}
           </p>
         </div>
-        <span className="landing-card-badge">Daily</span>
+        <span className="neu-badge">Daily</span>
       </div>
 
       {/* Highlights */}
       {props.highlights && props.highlights.length > 0 && (
-        <div className="rounded-2xl border border-[#e6e2d9]/50 bg-card p-5 shadow-lg">
-          <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-            <svg className="h-4 w-4 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <div className="neu-gen-card" style={{ borderLeft: "3px solid #22c55e" }}>
+          <h3 className="text-sm font-bold mb-3 flex items-center gap-2" style={{ color: "#22c55e" }}>
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
             Highlights
           </h3>
           <ul className="space-y-2">
             {props.highlights.map((h, i) => (
-              <li key={i} className="flex items-start gap-2.5 text-sm text-foreground">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-success shrink-0" />
+              <li key={i} className="flex items-start gap-2.5 text-sm" style={{ color: "#282828" }}>
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: "#22c55e" }} />
                 {h}
               </li>
             ))}
@@ -38,9 +38,9 @@ export function StandupSummary(props: StandupSummaryProps) {
 
       {/* Commits */}
       {props.commitsSummary && props.commitsSummary.length > 0 && (
-        <div className="rounded-2xl border border-[#e6e2d9]/50 bg-card p-5 shadow-lg">
-          <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-            <svg className="h-4 w-4 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <div className="neu-gen-card">
+          <h3 className="text-sm font-bold mb-3 flex items-center gap-2" style={{ color: "#282828" }}>
+            <svg className="h-4 w-4" style={{ color: "#6F6F6F" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
             </svg>
             Commits ({props.commitsSummary.length})
@@ -49,9 +49,9 @@ export function StandupSummary(props: StandupSummaryProps) {
             {props.commitsSummary.map((c, i) => (
               <div key={i} className="flex items-start gap-3 group">
                 <div className="flex flex-col items-center mt-0.5">
-                  <div className="h-2 w-2 rounded-full bg-border group-hover:bg-foreground transition-colors" />
+                  <div className="h-2 w-2 rounded-full" style={{ background: "#6F6F6F" }} />
                   {i < props.commitsSummary.length - 1 && (
-                    <div className="w-px h-full min-h-[20px] bg-border" />
+                    <div className="w-px h-full min-h-[20px]" style={{ background: "#ddd" }} />
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -60,13 +60,13 @@ export function StandupSummary(props: StandupSummaryProps) {
                       href={c.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                      className="neu-sha"
                     >
                       {c.sha.slice(0, 7)}
                     </a>
-                    <span className="text-xs text-muted-foreground">{c.author}</span>
+                    <span className="text-xs" style={{ color: "#999" }}>{c.author}</span>
                   </div>
-                  <p className="text-sm text-foreground truncate">{c.message}</p>
+                  <p className="text-sm truncate" style={{ color: "#282828" }}>{c.message}</p>
                 </div>
               </div>
             ))}
@@ -76,9 +76,9 @@ export function StandupSummary(props: StandupSummaryProps) {
 
       {/* PR Activity */}
       {props.prActivity && props.prActivity.length > 0 && (
-        <div className="rounded-2xl border border-[#e6e2d9]/50 bg-card p-5 shadow-lg">
-          <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-            <svg className="h-4 w-4 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <div className="neu-gen-card">
+          <h3 className="text-sm font-bold mb-3 flex items-center gap-2" style={{ color: "#282828" }}>
+            <svg className="h-4 w-4" style={{ color: "#6F6F6F" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
             </svg>
             Pull Requests ({props.prActivity.length})
@@ -90,14 +90,14 @@ export function StandupSummary(props: StandupSummaryProps) {
                 href={pr.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 rounded-xl border border-border bg-background p-3 transition-colors hover:bg-muted"
+                className="neu-gen-row"
               >
                 <StatusBadge status={pr.status} />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-foreground truncate">
+                  <p className="text-sm font-semibold truncate" style={{ color: "#282828" }}>
                     #{pr.number} {pr.title}
                   </p>
-                  <p className="text-xs text-muted-foreground">{pr.author}</p>
+                  <p className="text-xs" style={{ color: "#999" }}>{pr.author}</p>
                 </div>
               </a>
             ))}
@@ -107,17 +107,17 @@ export function StandupSummary(props: StandupSummaryProps) {
 
       {/* Blockers */}
       {props.blockers && props.blockers.length > 0 && (
-        <div className="rounded-2xl border border-warning/30 bg-warning/5 p-5">
-          <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-            <svg className="h-4 w-4 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <div className="neu-gen-card" style={{ borderLeft: "3px solid #f59e0b" }}>
+          <h3 className="text-sm font-bold mb-3 flex items-center gap-2" style={{ color: "#f59e0b" }}>
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
             Blockers
           </h3>
           <ul className="space-y-2">
             {props.blockers.map((b, i) => (
-              <li key={i} className="flex items-start gap-2.5 text-sm text-foreground">
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-warning shrink-0" />
+              <li key={i} className="flex items-start gap-2.5 text-sm" style={{ color: "#282828" }}>
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0" style={{ background: "#f59e0b" }} />
                 {b}
               </li>
             ))}
@@ -129,16 +129,15 @@ export function StandupSummary(props: StandupSummaryProps) {
 }
 
 function StatusBadge({ status }: { status: string }) {
-  const styles: Record<string, string> = {
-    opened: "bg-success/10 text-success",
-    merged: "bg-info/10 text-info",
-    closed: "bg-error/10 text-error",
-    reviewed: "bg-warning/10 text-warning",
+  const colors: Record<string, string> = {
+    opened: "#22c55e",
+    merged: "#3b82f6",
+    closed: "#ef4444",
+    reviewed: "#f59e0b",
   };
+  const color = colors[status] || "#6F6F6F";
   return (
-    <span
-      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${styles[status] || "bg-muted text-muted-foreground"}`}
-    >
+    <span className="neu-status-badge" style={{ color, background: `${color}12` }}>
       {status}
     </span>
   );
